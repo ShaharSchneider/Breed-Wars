@@ -8,6 +8,10 @@ public class DogsPool : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        for (int i = 0; i < dogPoolSize; i++)
+        {
+            dogsPool.Add(dogs[Random.Range(0, dogs.Length)]);
+        }
     }
 
     public GameObject[] dogs;
@@ -16,10 +20,7 @@ public class DogsPool : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i < dogPoolSize; i++)
-        {
-            dogsPool.Add(dogs[Random.Range(0, dogs.Length)]);
-        }
+
     }
 
     public GameObject getRandomDogFromPool()
