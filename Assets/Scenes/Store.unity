@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 470978229}
   - component: {fileID: 470978228}
   - component: {fileID: 470978230}
+  - component: {fileID: 470978231}
   m_Layer: 0
   m_Name: Game Background
   m_TagString: Untagged
@@ -218,20 +219,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9ca6f9b18c295d498278ab74232919f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pebbles:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   selector: {fileID: 1476840851}
+--- !u!114 &470978231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470978227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6765a1be0d857a54fa64400fc60d7953, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dogs:
+  - {fileID: 536470968}
+  - {fileID: 536470968}
+  - {fileID: 536470968}
+  dogPoolSize: 5
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,7 +338,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &536470969
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -419,8 +424,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 536470968}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.65, y: 0.12, z: -1}
-  m_LocalScale: {x: 0.37443, y: 0.352976, z: 1}
+  m_LocalPosition: {x: -12.65, y: -1.38, z: -1}
+  m_LocalScale: {x: 0.30853033, y: 0.28167483, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -453,7 +458,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1476840852
 SpriteRenderer:
   m_ObjectHideFlags: 0
