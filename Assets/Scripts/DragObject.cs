@@ -54,7 +54,7 @@ public class DragObject : MonoBehaviour
                 lastEnteredPebble = other.gameObject;
 
                 //This is for debug
-                //other.GetComponent<Renderer>().material.color = Color.red;
+                other.GetComponent<Renderer>().material.color = Color.red;
             }
         }
     }
@@ -66,7 +66,7 @@ public class DragObject : MonoBehaviour
         if (other.tag.Contains("team"))
         {
             //This is for debug
-            //other.GetComponent<Renderer>().material.color = Color.blue;
+            other.GetComponent<Renderer>().material.color = Color.blue;
         }
     }
 }
