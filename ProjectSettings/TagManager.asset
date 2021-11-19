@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - shop
+  - team0
+  - team1
+  - team2
+  - team3
+  - team4
   layers:
   - Default
   - TransparentFX
