@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class PebbleSpawning : MonoBehaviour
 {
+    public static PebbleSpawning instance;
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private GameObject[] pebbles = new GameObject[11];
     public GameObject selector; //selected in the editor
     private float width = (float)1.29;
@@ -36,5 +42,25 @@ public class PebbleSpawning : MonoBehaviour
             pebble.SetActive(true);
             pebbles[i] = pebble;
         }
+    }
+
+    public GameObject getCurrentPebbleByPosition(Vector3 pos)
+    {
+        for (int i = 0; i < pebbles.Length; i++)
+        {
+            Collider2D c = pebbles[i].GetComponent<Collider2D>();
+            
+            if (IsInside(c, pos))
+            {
+                return pebbles[i];
+            }
+        }
+
+        return null;
+    }
+
+    private bool IsInside(Collider2D c, Vector3 point)
+    {
+        return c.bounds.Contains(point);
     }
 }

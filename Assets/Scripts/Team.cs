@@ -13,15 +13,14 @@ public class Team : MonoBehaviour
         instance = this;
     }
 
-    // Start is called before the first frame update
-    public bool isValidPostion(int position)
+    public bool isValidPosition(int position)
     {
         return team[position] == null;
     }
 
     public void buyDog(int position, GameObject dog)
     {
-        if(isValidPostion(position))
+        if(isValidPosition(position))
         {
             int i = Array.IndexOf(team, dog);
             
@@ -35,7 +34,7 @@ public class Team : MonoBehaviour
 
         for (int i = 0; i < team.Length; i++)
         {
-            if(!isValidPostion(i))
+            if(!isValidPosition(i))
             {
                 Debug.Log(team[i].name);
             }

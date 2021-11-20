@@ -11,14 +11,10 @@ public class DragObject : MonoBehaviour
     void OnMouseDown()
     {
         firstDragPosition = gameObject.transform.position;
-
-        // Store offset = gameobject world pos - mouse world pos
-        //mOffset = firstDragPosition - GetMouseWorldPos();
     }
 
     private Vector3 GetMouseWorldPos()
     {
-        // pixel coordinates (x, y)
         Vector3 mousePoint = Input.mousePosition;
 
         return Camera.main.ScreenToWorldPoint(mousePoint);
@@ -32,45 +28,30 @@ public class DragObject : MonoBehaviour
 
     void OnMouseUp()
     {
+        lastEnteredPebble = PebbleSpawning.instance.getCurrentPebbleByPosition(transform.position);
+
         if (lastEnteredPebble != null)
         {
-            Vector3 pos = lastEnteredPebble.transform.position;
-            transform.position = new Vector3(pos.x + (float)0.1, pos.y + (float)0.5, pos.z - 1);
+            if (lastEnteredPebble.tag.Contains("team"))
+            {
+                int teamIndex = int.Parse(lastEnteredPebble.tag[lastEnteredPebble.tag.Length - 1].ToString());
 
-            int teamIndex = int.Parse(lastEnteredPebble.tag[lastEnteredPebble.tag.Length - 1].ToString());
-            Team.instance.buyDog(teamIndex, gameObject);
+                if (Team.instance.isValidPosition(teamIndex))
+                {
+                    Team.instance.buyDog(teamIndex, gameObject);
+
+                    Vector3 pos = lastEnteredPebble.transform.position;
+                    transform.position = new Vector3(pos.x + (float)0.1, pos.y + (float)0.5, -2);
+                } else
+                {
+                    transform.position = firstDragPosition;
+                }
+            } else if (lastEnteredPebble.tag.Equals("shop")) {
+                Vector3 pos = lastEnteredPebble.transform.position;
+                transform.position = new Vector3(pos.x + (float)0.1, pos.y + (float)0.5, -2);
+            }
         } else {
             transform.position = firstDragPosition;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag.Contains("team"))
-        {
-            int teamIndex = int.Parse(other.tag[other.tag.Length - 1].ToString());
-            
-            if (Team.instance.isValidPostion(teamIndex))
-            {
-                lastEnteredPebble = other.gameObject;
-
-                //This is for debug
-                other.GetComponent<Renderer>().material.color = Color.red;
-            }
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.Equals(lastEnteredPebble))
-        {
-            lastEnteredPebble = null;
-
-            if (other.tag.Contains("team"))
-            {
-                //This is for debug
-                other.GetComponent<Renderer>().material.color = Color.blue;
-            }
         }
     }
 }
