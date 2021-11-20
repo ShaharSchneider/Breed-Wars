@@ -20,10 +20,10 @@ public class Team : MonoBehaviour
 
     public void buyDog(int position, GameObject dog)
     {
-        if(isValidPosition(position))
+        if (isValidPosition(position))
         {
             int i = Array.IndexOf(team, dog);
-            
+
             if (i != -1)
             {
                 team[i] = null;
@@ -34,10 +34,19 @@ public class Team : MonoBehaviour
 
         for (int i = 0; i < team.Length; i++)
         {
-            if(!isValidPosition(i))
+            if (!isValidPosition(i))
             {
                 Debug.Log(team[i].name);
             }
+        }
+    }
+
+    public void sellDog(GameObject dog)
+    {
+        int i = Array.IndexOf(team, dog);
+        if (i != -1)
+        {
+            team[i] = null;
         }
     }
 }

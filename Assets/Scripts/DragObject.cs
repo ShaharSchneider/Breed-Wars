@@ -49,6 +49,7 @@ public class DragObject : MonoBehaviour
             } else if (lastEnteredPebble.tag.Equals("shop")) {
                 Vector3 pos = lastEnteredPebble.transform.position;
                 transform.position = new Vector3(pos.x + (float)0.1, pos.y + (float)0.5, -2);
+                Team.instance.sellDog(gameObject);
             }
         } else {
             transform.position = firstDragPosition;
