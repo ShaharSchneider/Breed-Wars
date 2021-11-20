@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,12 +6,14 @@ using UnityEngine;
 public class DogsPool : MonoBehaviour
 {
     public static DogsPool instance;
+    private static System.Random r = new System.Random();
+
     private void Awake()
     {
         instance = this;
         for (int i = 0; i < dogPoolSize; i++)
         {
-            dogsPool.Add(dogs[Random.Range(0, dogs.Length)]);
+            dogsPool.Add(dogs[r.Next(0, dogs.Length)]);
         }
     }
 
@@ -25,7 +28,7 @@ public class DogsPool : MonoBehaviour
 
     public GameObject getRandomDogFromPool()
     {
-        GameObject randomDogPicked = Instantiate(dogsPool[Random.Range(0, dogsPool.Count)]);
+        GameObject randomDogPicked = Instantiate(dogsPool[r.Next(0, dogsPool.Count)]);
         randomDogPicked.SetActive(true);
 
         return randomDogPicked;
