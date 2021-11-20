@@ -13,7 +13,7 @@ public class DragObject : MonoBehaviour
         firstDragPosition = gameObject.transform.position;
 
         // Store offset = gameobject world pos - mouse world pos
-        mOffset = firstDragPosition - GetMouseWorldPos();
+        //mOffset = firstDragPosition - GetMouseWorldPos();
     }
 
     private Vector3 GetMouseWorldPos()
@@ -26,7 +26,8 @@ public class DragObject : MonoBehaviour
 
     void OnMouseDrag()
     {
-        transform.position = GetMouseWorldPos() + mOffset;
+        Vector3 mouse = GetMouseWorldPos();
+        transform.position = new Vector3(mouse.x, mouse.y, -1);
     }
 
     void OnMouseUp()
@@ -61,12 +62,15 @@ public class DragObject : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        lastEnteredPebble = null;
-
-        if (other.tag.Contains("team"))
+        if (other.gameObject.Equals(lastEnteredPebble))
         {
-            //This is for debug
-            other.GetComponent<Renderer>().material.color = Color.blue;
+            lastEnteredPebble = null;
+
+            if (other.tag.Contains("team"))
+            {
+                //This is for debug
+                other.GetComponent<Renderer>().material.color = Color.blue;
+            }
         }
     }
 }
