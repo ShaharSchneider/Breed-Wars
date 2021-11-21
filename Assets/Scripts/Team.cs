@@ -6,8 +6,11 @@ using System;
 public class Team : MonoBehaviour
 {
     private GameObject[] team = new GameObject[5];
+    private GameObject[] xp = new GameObject[5];
     private const int DOG_BUY_VALUE = 3;
     private const int DOG_SELL_VALUE = 1;
+
+    public Sprite xp11;
 
     public static Team instance;
     private void Awake()
@@ -28,12 +31,21 @@ public class Team : MonoBehaviour
             {
                 int i = Array.IndexOf(team, dog);
 
+                dog.tag = "team" + position;
+
                 if (i != -1)
                 {
                     team[i] = null;
+                    Destroy(xp[i]);
+                    xp[i] = null;
                 }
 
-                dog.tag = "team" + position;
+
+                GameObject dogXP = new GameObject();
+                dogXP.AddComponent<SpriteRenderer>().sprite = xp11;
+                dogXP.transform.position = new Vector3((float)(-4.9 + (1.67f) * position), 0.8f, -2);
+
+                xp[position] = dogXP;
                 team[position] = dog;
                 return true;
             }
@@ -49,6 +61,8 @@ public class Team : MonoBehaviour
         {
             team[i] = null;
             Destroy(dog);
+            Destroy(xp[i]);
+            xp[i] = null;
             Coins.instance.sell(DOG_SELL_VALUE);
             return true;
         }
