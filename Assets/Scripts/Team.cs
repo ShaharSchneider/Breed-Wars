@@ -41,12 +41,15 @@ public class Team : MonoBehaviour
         }
     }
 
-    public void sellDog(GameObject dog)
+    public bool sellDog(GameObject dog)
     {
         int i = Array.IndexOf(team, dog);
         if (i != -1)
         {
             team[i] = null;
+            Destroy(dog);
+            return true;
         }
+        return false;
     }
 }

@@ -28,30 +28,54 @@ public class DragObject : MonoBehaviour
 
     void OnMouseUp()
     {
-        lastEnteredPebble = PebbleSpawning.instance.getCurrentPebbleByPosition(transform.position);
+        Collider2D[] overlap = Physics2D.OverlapAreaAll(GetMouseWorldPos(), GetMouseWorldPos());
 
-        if (lastEnteredPebble != null)
+        if (overlap.Length > 1)
         {
-            if (lastEnteredPebble.tag.Contains("team"))
+            Collider2D draggedTo = overlap[1];
+
+            Debug.Log(draggedTo);
+            Debug.Log("Object = " + draggedTo + " : " + draggedTo.name.ToString().StartsWith("Pebble"));
+
+            if (draggedTo.name.ToString().StartsWith("Pebble"))
             {
-                int teamIndex = int.Parse(lastEnteredPebble.tag[lastEnteredPebble.tag.Length - 1].ToString());
-
-                if (Team.instance.isValidPosition(teamIndex))
+                if (draggedTo.tag.Contains("team"))
                 {
-                    Team.instance.buyDog(teamIndex, gameObject);
+                    int teamIndex = int.Parse(draggedTo.tag[draggedTo.tag.Length - 1].ToString());
 
-                    Vector3 pos = lastEnteredPebble.transform.position;
+                    if (Team.instance.isValidPosition(teamIndex))
+                    {
+                        Team.instance.buyDog(teamIndex, gameObject);
+
+                        Vector3 pos = draggedTo.transform.position;
+                        transform.position = new Vector3(pos.x + (float)0.1, pos.y + (float)0.5, -2);
+                    }
+                    else
+                    {
+                        transform.position = firstDragPosition;
+                    }
+                }
+                else if (draggedTo.tag.Equals("shop"))
+                {
+                    Vector3 pos = draggedTo.transform.position;
                     transform.position = new Vector3(pos.x + (float)0.1, pos.y + (float)0.5, -2);
-                } else
+                    Team.instance.sellDog(gameObject);
+                }
+            }
+            else if (draggedTo.name.StartsWith("Sell"))
+            {
+                if (!Team.instance.sellDog(gameObject))
                 {
                     transform.position = firstDragPosition;
                 }
-            } else if (lastEnteredPebble.tag.Equals("shop")) {
-                Vector3 pos = lastEnteredPebble.transform.position;
-                transform.position = new Vector3(pos.x + (float)0.1, pos.y + (float)0.5, -2);
-                Team.instance.sellDog(gameObject);
             }
-        } else {
+            else
+            {
+                transform.position = firstDragPosition;
+            }
+        }
+        else
+        {
             transform.position = firstDragPosition;
         }
     }
