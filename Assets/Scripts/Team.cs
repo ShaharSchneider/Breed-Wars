@@ -29,6 +29,7 @@ public class Team : MonoBehaviour
                 team[i] = null;
             }
 
+            dog.tag = "team"+ position;
             team[position] = dog;
         }
     }

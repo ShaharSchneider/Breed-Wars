@@ -11,6 +11,7 @@ public class PebbleSpawning : MonoBehaviour
     }
 
     private GameObject[] pebbles = new GameObject[11];
+    private List<GameObject> dogs = new List<GameObject>();
     public GameObject selector; //selected in the editor
     private float width = (float)1.29;
     private float height = (float)1.58;
@@ -30,9 +31,10 @@ public class PebbleSpawning : MonoBehaviour
             else
             {
                 currentVector = new Vector3((float)(-5 + (width * 1.3) * (i - 5)), (float)-2.22, -1);
-                
+
                 GameObject dog = DogsPool.instance.getRandomDogFromPool();
                 dog.transform.position = new Vector3(currentVector.x + (float)0.1, currentVector.y + (float)0.5, currentVector.z - 1);
+                dogs.Add(dog);
                 tag = "shop";
             }
 
@@ -49,7 +51,7 @@ public class PebbleSpawning : MonoBehaviour
         for (int i = 0; i < pebbles.Length; i++)
         {
             Collider2D c = pebbles[i].GetComponent<Collider2D>();
-            
+
             if (IsInside(c, pos))
             {
                 return pebbles[i];
@@ -62,5 +64,26 @@ public class PebbleSpawning : MonoBehaviour
     private bool IsInside(Collider2D c, Vector3 point)
     {
         return c.bounds.Contains(point);
+    }
+    void OnMouseUp()
+    {
+        List<GameObject> tempDogs = new List<GameObject>();
+
+        for (int i = 5; i < pebbles.Length; i++)
+        {
+            Vector3 currentVector = new Vector3((float)(-4.9 + (width * 1.3) * (i - 5)), (float)-1.72, -2);
+
+            GameObject dog = DogsPool.instance.getRandomDogFromPool();
+            dog.transform.position = currentVector;
+            tempDogs.Add(dog);
+
+            if (!dogs[i - 5].tag.StartsWith("team"))
+            {
+                Destroy(dogs[i - 5]);
+            }
+        }
+
+        dogs.Clear();
+        dogs.AddRange(tempDogs);
     }
 }

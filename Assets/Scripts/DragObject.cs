@@ -28,7 +28,8 @@ public class DragObject : MonoBehaviour
 
     void OnMouseUp()
     {
-        Collider2D[] overlap = Physics2D.OverlapAreaAll(GetMouseWorldPos(), GetMouseWorldPos());
+        Vector3 mousePos = GetMouseWorldPos();
+        Collider2D[] overlap = Physics2D.OverlapAreaAll(mousePos, mousePos);
 
         if (overlap.Length > 1)
         {
