@@ -31,14 +31,6 @@ public class Team : MonoBehaviour
 
             team[position] = dog;
         }
-
-        for (int i = 0; i < team.Length; i++)
-        {
-            if (!isValidPosition(i))
-            {
-                Debug.Log(team[i].name);
-            }
-        }
     }
 
     public bool sellDog(GameObject dog)

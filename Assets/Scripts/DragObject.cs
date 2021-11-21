@@ -34,9 +34,6 @@ public class DragObject : MonoBehaviour
         {
             Collider2D draggedTo = overlap[1];
 
-            Debug.Log(draggedTo);
-            Debug.Log("Object = " + draggedTo + " : " + draggedTo.name.ToString().StartsWith("Pebble"));
-
             if (draggedTo.name.ToString().StartsWith("Pebble"))
             {
                 if (draggedTo.tag.Contains("team"))
@@ -55,11 +52,9 @@ public class DragObject : MonoBehaviour
                         transform.position = firstDragPosition;
                     }
                 }
-                else if (draggedTo.tag.Equals("shop"))
+                else
                 {
-                    Vector3 pos = draggedTo.transform.position;
-                    transform.position = new Vector3(pos.x + (float)0.1, pos.y + (float)0.5, -2);
-                    Team.instance.sellDog(gameObject);
+                    transform.position = firstDragPosition;
                 }
             }
             else if (draggedTo.name.StartsWith("Sell"))

@@ -11,15 +11,15 @@ public class DogsPool : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        for (int i = 0; i < dogPoolSize; i++)
-        {
-            dogsPool.Add(dogs[r.Next(0, dogs.Length)]);
-        }
+        //for (int i = 0; i < dogPoolSize; i++)
+        //{
+        //    dogsPool.Add(dogs[r.Next(0, dogs.Length)]);
+        //}
     }
 
     public GameObject[] dogs;
-    public int dogPoolSize = 10;
-    private List<GameObject> dogsPool = new List<GameObject>();
+    //public int dogPoolSize = 10;
+    //private List<GameObject> dogsPool = new List<GameObject>();
 
     void Start()
     {
@@ -28,7 +28,7 @@ public class DogsPool : MonoBehaviour
 
     public GameObject getRandomDogFromPool()
     {
-        GameObject randomDogPicked = Instantiate(dogsPool[r.Next(0, dogsPool.Count)]);
+        GameObject randomDogPicked = Instantiate(dogs[r.Next(0, dogs.Length)]);
         randomDogPicked.SetActive(true);
 
         return randomDogPicked;
