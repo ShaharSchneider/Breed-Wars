@@ -41,10 +41,8 @@ public class DragObject : MonoBehaviour
                 {
                     int teamIndex = int.Parse(draggedTo.tag[draggedTo.tag.Length - 1].ToString());
 
-                    if (Team.instance.isValidPosition(teamIndex))
+                    if (Team.instance.isValidPosition(teamIndex) && Team.instance.buyDog(teamIndex, gameObject))
                     {
-                        Team.instance.buyDog(teamIndex, gameObject);
-
                         Vector3 pos = draggedTo.transform.position;
                         transform.position = new Vector3(pos.x + (float)0.1, pos.y + (float)0.5, -2);
                     }

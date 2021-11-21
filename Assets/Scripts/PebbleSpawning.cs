@@ -15,6 +15,7 @@ public class PebbleSpawning : MonoBehaviour
     public GameObject selector; //selected in the editor
     private float width = (float)1.29;
     private float height = (float)1.58;
+    private const int REROLL_VALUE = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -67,23 +68,26 @@ public class PebbleSpawning : MonoBehaviour
     }
     void OnMouseUp()
     {
-        List<GameObject> tempDogs = new List<GameObject>();
-
-        for (int i = 5; i < pebbles.Length; i++)
+        if (Coins.instance.buy(REROLL_VALUE))
         {
-            Vector3 currentVector = new Vector3((float)(-4.9 + (width * 1.3) * (i - 5)), (float)-1.72, -2);
+            List<GameObject> tempDogs = new List<GameObject>();
 
-            GameObject dog = DogsPool.instance.getRandomDogFromPool();
-            dog.transform.position = currentVector;
-            tempDogs.Add(dog);
-
-            if (!dogs[i - 5].tag.StartsWith("team"))
+            for (int i = 5; i < pebbles.Length; i++)
             {
-                Destroy(dogs[i - 5]);
-            }
-        }
+                Vector3 currentVector = new Vector3((float)(-4.9 + (width * 1.3) * (i - 5)), (float)-1.72, -2);
 
-        dogs.Clear();
-        dogs.AddRange(tempDogs);
+                GameObject dog = DogsPool.instance.getRandomDogFromPool();
+                dog.transform.position = currentVector;
+                tempDogs.Add(dog);
+
+                if (dogs[i - 5] != null && !dogs[i - 5].tag.StartsWith("team"))
+                {
+                    Destroy(dogs[i - 5]);
+                }
+            }
+
+            dogs.Clear();
+            dogs.AddRange(tempDogs);
+        }
     }
 }
